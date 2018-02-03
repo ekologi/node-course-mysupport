@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <a class="navbar-brand" href="#">My Support</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li (class=(title=='Selamat Datang di Area Member' ? "nav-item active" : "nav-item"))>
+        <a class="nav-link" href="/">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      {{#if user}}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">Video Ideas</a>
+            <div class="dropdown-menu">
+              <a href="/ideas" class="dropdown-item">Ideas</a>
+              <a href="/ideas/add" class="dropdown-item">Add Idea</a>
+            </div>
+          </li>
+          <li>
+            <a class="nav-link" href="/users/logout">Logout</a>
+          </li>
+        </ul>
+      {{else}}
+        <ul class="navbar-nav ml-auto">
+          <li class=(title=='Halaman Registrasi' ? "nav-item active" : "nav-item")>
+            <a class="nav-link" href="/users/register">Register</a>
+          </li>
+          <li class=(title=='Halaman Login' ? "nav-item active" : "nav-item")>
+            <a class="nav-link" href="/users/login">Login</a>
+          </li>
+        </ul>
+       {{/if}}
+    </ul>
+  </div>
+</nav>
