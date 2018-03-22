@@ -74,6 +74,14 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
+app.post('/api/test', function (req, res) {
+    var user_id = req.body.id;
+    var token = req.body.token;
+    var geo = req.body.geo;
+
+    //res.send(user_id + ' ' + token + ' ' + geo);
+    res.send(req.body);
+});
 
 // Use routes
 app.use('/ideas',ideas); 
