@@ -32,10 +32,11 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+
 //method-override
 app.use(methodOverride('_method'));
 //body parser
-app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
 
 // Express session midleware
@@ -75,14 +76,36 @@ app.get('/about', (req, res) => {
 });
 
 app.post('/api/test', function (req, res) {
-    var user_id = req.body.id;
-    var token = req.body.token;
-    var geo = req.body.geo;
+    //var user_id = req.body.id;
+    //var token = req.body.token;
+    //console.log(typeof(req.body));
+    //var geo = req.body.geo;
+    //var invmst_no = JSON.stringify(req.body.invmst_no_inv);
+    
+    //str = JSON.stringify(str);
+    //str = JSON.parse(str);
 
-    //res.send(user_id + ' ' + token + ' ' + geo);
-    res.send(JSON.stringify(req.body));
-    //res.send(req.body);
+    var obj = req.body;
+    //res.send(obj);
+    //var name = req.body.name;
+    // console.log(typeof (obj));
+    // console.log(obj);
+    var str = JSON.stringify(obj);
+
+    var substr = str.substring(2, str.length - 5).replace(/[\\\n]/g, "");
+    
+    //console.log(obj);
+    var n = substr.indexOf("data");
+    var substr2 = substr.substring(0, n+6);
+    var substr3 = substr.substring(n + 11, substr.length-1);
+    var substr4 = substr2 + "[" + substr3 + "]}";
+
+    var jsonstr = JSON.parse(substr4);
+
+    res.send(jsonstr);
+
 });
+
 
 // Use routes
 app.use('/ideas',ideas); 
