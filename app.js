@@ -80,7 +80,8 @@ app.post('/api/test', function (req, res) {
     var geo = req.body.geo;
 
     //res.send(user_id + ' ' + token + ' ' + geo);
-    res.send(req.body);
+    res.send(req.JSON.parse(body));
+    //res.send(req.body);
 });
 
 // Use routes
