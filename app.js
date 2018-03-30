@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const assert = require('assert');
 const app = express();
 const expressValidator = require('express-validator');
 const Session = require('express-session'); 
@@ -82,27 +83,34 @@ app.post('/api/test', function (req, res) {
     //var geo = req.body.geo;
     //var invmst_no = JSON.stringify(req.body.invmst_no_inv);
     
-    //str = JSON.stringify(str);
-    //str = JSON.parse(str);
-
     var obj = req.body;
-    //res.send(obj);
-    //var name = req.body.name;
-    // console.log(typeof (obj));
-    // console.log(obj);
+
     var str = JSON.stringify(obj);
 
     var substr = str.substring(2, str.length - 5).replace(/[\\\n]/g, "");
-    
-    //console.log(obj);
-    var n = substr.indexOf("data");
-    var substr2 = substr.substring(0, n+6);
-    var substr3 = substr.substring(n + 11, substr.length-1);
-    var substr4 = substr2 + "[" + substr3 + "]}";
 
-    var jsonstr = JSON.parse(substr4);
+    //ganti ":{" dengan [
+    var ret = substr.replace('":{"', "[");
+    //buang " karena ada sisa "(tanda petik)
+    var substr2 = ret.substring(0, ret.length - 1);
+
+    //tambahkan ]}} 
+    var substr3 = substr2 + "]}}";
+    var jsonstr = JSON.parse(substr3);
 
     res.send(jsonstr);
+    //res.send(substr);
+    // //console.log(obj);
+    // var n = substr.indexOf("data");
+    // var substr2 = substr.substring(0, n+6);
+    // var substr3 = substr.substring(n + 11, substr.length-1);
+    // var substr4 = substr2 + "[" + substr3 + "]}";
+
+    // var jsonstr = JSON.parse(substr4);
+
+    // res.send(jsonstr);
+
+    
 
 });
 
